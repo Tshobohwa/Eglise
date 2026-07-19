@@ -20,6 +20,7 @@ export default function TabLayout() {
         tabBarStyle: {
           height: 80,
           shadowColor: "transparent",
+          paddingTop: 10,
         },
       }}
     >
