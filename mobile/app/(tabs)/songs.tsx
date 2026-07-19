@@ -1,10 +1,19 @@
 import PageHeader from "@/components/page-header";
+import FilterButton from "@/components/ui/filter-button";
 import SearchBar from "@/components/ui/search-bar";
 import { useState } from "react";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 
 export default function SongsScreen() {
   const [searchText, setSearchText] = useState("");
+  const songsFilters = [
+    "Toutes",
+    "Adoration",
+    "Louange",
+    "Action de grâce",
+    "Prière",
+    "Meditation",
+  ];
   return (
     <View>
       <PageHeader title="Cantiques">
@@ -13,6 +22,16 @@ export default function SongsScreen() {
           onChangeText={setSearchText}
           placeholder="Rechercher dans cantiques"
         />
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          {songsFilters.map((filter) => (
+            <FilterButton
+              key={filter}
+              text={filter}
+              isActive={searchText === filter}
+              onPress={() => setSearchText(filter)}
+            />
+          ))}
+        </ScrollView>
       </PageHeader>
     </View>
   );
