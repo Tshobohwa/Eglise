@@ -6,7 +6,10 @@ import {
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import {
+  SafeAreaProvider,
+  SafeAreaInsetsContext,
+} from "react-native-safe-area-context";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 
 export const unstable_settings = {
@@ -19,13 +22,24 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <SafeAreaProvider>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="modal"
-            options={{ presentation: "modal", title: "Modal" }}
-          />
-        </Stack>
+        <SafeAreaInsetsContext.Consumer>
+          {(insets) => (
+            <Stack
+              screenOptions={{
+                contentStyle: {
+                  paddingTop: insets?.top ?? 0,
+                  paddingBottom: insets?.bottom ?? 0,
+                },
+              }}
+            >
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen
+                name="modal"
+                options={{ presentation: "modal", title: "Modal" }}
+              />
+            </Stack>
+          )}
+        </SafeAreaInsetsContext.Consumer>
         <StatusBar style="auto" />
       </SafeAreaProvider>
     </ThemeProvider>
