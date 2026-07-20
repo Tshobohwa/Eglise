@@ -1,4 +1,5 @@
 import PageHeader from "@/components/page-header";
+import SongCard from "@/components/song-card";
 import FilterButton from "@/components/ui/filter-button";
 import SearchBar from "@/components/ui/search-bar";
 import { useState } from "react";
@@ -33,6 +34,10 @@ export default function SongsScreen() {
           ))}
         </ScrollView>
       </PageHeader>
+
+      <ScrollView>
+        <SongCard />
+      </ScrollView>
     </View>
   );
 }
